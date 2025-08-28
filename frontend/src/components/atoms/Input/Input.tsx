@@ -1,35 +1,32 @@
-import React from 'react';
+import React, { forwardRef } from "react";
 
-interface InputProps {
-  type?: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: string;
-  className?: string;
-  disabled?: boolean;
-  required?: boolean;
+type NativeInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">;
+
+export interface InputProps extends NativeInputProps {
+  size?: "sm" | "md" | "lg";
 }
 
-const Input: React.FC<InputProps> = ({
-  type = 'text',
-  value,
-  onChange,
-  placeholder,
-  className = '',
-  disabled = false,
-  required = false,
-}) => {
-  return (
-    <input
-      type={type}
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      disabled={disabled}
-      required={required}
-      className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${className}`}
-    />
-  );
-};
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ type = "text", className = "", size = "md", ...props }, ref) => {
+    const sizeClasses: Record<NonNullable<InputProps["size"]>, string> = {
+      sm: "text-xs px-2 py-1",
+      md: "text-sm px-3 py-2",
+      lg: "text-base px-4 py-3",
+    };
+
+    return (
+      <input
+        ref={ref}
+        type={type}
+        className={`w-full border border-gray-300 rounded-md
+                    focus:outline-none focus:ring-1 focus:ring-coffee-600
+                    focus:border-coffee-600 ${sizeClasses[size]} ${className}`}
+        {...props}
+      />
+    );
+  }
+);
+
+Input.displayName = "Input";
 
 export default Input;

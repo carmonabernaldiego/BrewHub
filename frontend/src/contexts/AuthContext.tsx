@@ -53,8 +53,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     isAuthenticated: false,
   });
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
+   useEffect(() => {
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (token) {
       authService.me()
         .then(user => {
@@ -62,21 +62,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         })
         .catch(() => {
           localStorage.removeItem('token');
+          sessionStorage.removeItem('token');
           dispatch({ type: 'LOGIN_FAILURE' });
         })
-        .finally(() => {
-          dispatch({ type: 'SET_LOADING', payload: false });
-        });
+        .finally(() => dispatch({ type: 'SET_LOADING', payload: false }));
     } else {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
   }, []);
 
-  const login = async (credentials: LoginCredentials) => {
+  const login = async (credentials: LoginCredentials, options?: { remember?: boolean }) => {
     dispatch({ type: 'LOGIN_START' });
     try {
       const response = await authService.login(credentials);
-      localStorage.setItem('token', response.token);
+
+      if (options?.remember !== false) {
+        localStorage.setItem('token', response.token);
+        sessionStorage.removeItem('token');
+      } else {
+        sessionStorage.setItem('token', response.token);
+        localStorage.removeItem('token');
+      }
+
       dispatch({ type: 'LOGIN_SUCCESS', payload: response.user });
     } catch (error) {
       dispatch({ type: 'LOGIN_FAILURE' });
