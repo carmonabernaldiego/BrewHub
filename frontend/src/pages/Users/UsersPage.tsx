@@ -5,9 +5,8 @@ import UserTable from '../../components/organisms/UserTable/UserTable';
 
 const UsersPage: React.FC = () => {
   return (
-    <DashboardLayout breadcrumb="Catálogo de usuarios">
+    <DashboardLayout breadcrumb="Catálogo de usuarios" title="Usuarios">
       <PageHeader
-        title="Usuarios"
         addLabel="Agregar usuario"
         onAdd={() => {}}
       />
