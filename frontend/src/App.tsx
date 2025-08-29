@@ -1,9 +1,14 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
-import LoginPage from './pages/Login/LoginPage';
-import UsersPage from './pages/Users/UsersPage';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import LoginPage from "./pages/Login/LoginPage";
+import UsersPage from "./pages/Users/UsersPage";
 
 function App() {
   return (
@@ -15,9 +20,9 @@ function App() {
             <Route
               path="/users"
               element={
-              //<ProtectedRoute>
-                <UsersPage />
-              //</ProtectedRoute>
+                <ProtectedRoute>
+                  <UsersPage />
+                </ProtectedRoute>
               }
             />
             <Route path="/" element={<Navigate to="/login" replace />} />

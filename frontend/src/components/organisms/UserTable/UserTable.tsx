@@ -17,7 +17,10 @@ const UserTable: React.FC = () => {
     try {
       setLoading(true);
       const response = await userService.getUsers(sortBy, sortDirection);
-      const withActive = response.users.map((u, i) => ({ ...u, is_active: i % 2 === 0 }));
+      const withActive = response.users.map((u, i) => ({
+        ...u,
+        is_active: i % 2 === 0,
+      }));
       setUsers(withActive);
       setError("");
     } catch (e) {
@@ -28,20 +31,25 @@ const UserTable: React.FC = () => {
     }
   };
 
-  useEffect(() => { fetchUsers(); }, [sortBy, sortDirection]);
+  useEffect(() => {
+    fetchUsers();
+  }, [sortBy, sortDirection]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return users;
-    return users.filter(u =>
-      u.name.toLowerCase().includes(q) ||
-      u.email.toLowerCase().includes(q)
+    return users.filter(
+      (u) =>
+        u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q)
     );
   }, [users, query]);
 
   const handleSort = (col: "name" | "created_at") => {
-    if (sortBy === col) setSortDirection(d => (d === "asc" ? "desc" : "asc"));
-    else { setSortBy(col); setSortDirection("asc"); }
+    if (sortBy === col) setSortDirection((d) => (d === "asc" ? "desc" : "asc"));
+    else {
+      setSortBy(col);
+      setSortDirection("asc");
+    }
   };
 
   const getSortCaret = (col: "name" | "created_at") => {
@@ -83,10 +91,6 @@ const UserTable: React.FC = () => {
                          focus:outline-none focus:ring-1 focus:ring-coffee-600 focus:border-coffee-600 bg-[#F6EEE4]"
             />
           </div>
-
-          <Button onClick={() => {}} className="whitespace-nowrap">
-            Agregar usuario
-          </Button>
         </div>
       </div>
 
@@ -94,26 +98,30 @@ const UserTable: React.FC = () => {
         <table className="min-w-full">
           <thead>
             <tr className="bg-coffee-700 text-white">
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium tracking-wider">
                 <button
                   onClick={() => handleSort("name")}
                   className="inline-flex items-center gap-1"
                 >
-                  Nombre <span className="text-white/80">{getSortCaret("name")}</span>
+                  Nombre{" "}
+                  <span className="text-white/80">{getSortCaret("name")}</span>
                 </button>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium tracking-wider">
                 Correo
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium tracking-wider">
                 <button
                   onClick={() => handleSort("created_at")}
                   className="inline-flex items-center gap-1"
                 >
-                  Fecha de creación <span className="text-white/80">{getSortCaret("created_at")}</span>
+                  Fecha de creación{" "}
+                  <span className="text-white/80">
+                    {getSortCaret("created_at")}
+                  </span>
                 </button>
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium tracking-wider">
                 Acciones
               </th>
             </tr>
@@ -126,7 +134,11 @@ const UserTable: React.FC = () => {
                 user={u}
                 stripe={idx % 2 === 0}
                 onToggle={(id, next) => {
-                  setUsers(prev => prev.map(x => x.id === id ? { ...x, is_active: next } : x));
+                  setUsers((prev) =>
+                    prev.map((x) =>
+                      x.id === id ? { ...x, is_active: next } : x
+                    )
+                  );
                 }}
                 onEdit={(id) => {}}
                 onDelete={(id) => {}}
@@ -137,7 +149,8 @@ const UserTable: React.FC = () => {
       </div>
 
       <div className="px-6 py-3 text-sm text-neutral-500">
-        Mostrando {filtered.length} {filtered.length === 1 ? "usuario" : "usuarios"}
+        Mostrando {filtered.length}{" "}
+        {filtered.length === 1 ? "usuario" : "usuarios"}
       </div>
     </section>
   );
