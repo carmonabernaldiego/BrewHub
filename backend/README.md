@@ -1,4 +1,4 @@
-# Guía de instalación: Backend
+# Guía de instalación: Backend (Laravel)
 
 Sigue los pasos para configurar el Backend.
 
