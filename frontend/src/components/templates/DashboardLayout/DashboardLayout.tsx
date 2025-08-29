@@ -1,19 +1,22 @@
-import React from 'react';
-import Header from '../../organisms/Header/Header';
+import React from "react";
+import Sidebar from "../../organisms/Sidebar/Sidebar";
+import Topbar from "../../organisms/Topbar/Topbar";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
+  breadcrumb?: string;
 }
 
-const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, breadcrumb }) => {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="px-4 py-6 sm:px-0">
+    <div className="min-h-screen bg-[#F7EFE5]">
+      <Sidebar />
+      <div className="ml-60">
+        <Topbar breadcrumb={breadcrumb} />
+        <main className="mx-auto max-w-6xl px-4 py-5">
           {children}
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 };

@@ -15,9 +15,9 @@ function App() {
             <Route
               path="/users"
               element={
-                <ProtectedRoute>
-                  <UsersPage />
-                </ProtectedRoute>
+              //<ProtectedRoute>
+                <UsersPage />
+              //</ProtectedRoute>
               }
             />
             <Route path="/" element={<Navigate to="/login" replace />} />
