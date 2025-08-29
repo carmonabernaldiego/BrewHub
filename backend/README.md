@@ -1,6 +1,6 @@
 # Guía de instalación: Backend
 
-Este proyecto utiliza Laravel para implementar la API del sistema. Sigue los pasos a continuación para configurar el back-end correctamente.
+Sigue los pasos para configurar el Backend.
 
 ---
 
