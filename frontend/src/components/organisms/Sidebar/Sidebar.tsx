@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../../contexts/AuthContext";
 
 type ItemProps = {
   to: string;
@@ -27,6 +28,8 @@ const Item: React.FC<ItemProps> = ({ to, label, icon, end }) => (
 );
 
 const Sidebar: React.FC = () => {
+  const { logout } = useAuth();
+
   return (
     <aside className="fixed left-0 top-0 z-40 h-screen w-60 bg-coffee-800 px-3 py-4">
       <div className="mb-6 flex items-center gap-2 px-2">
@@ -96,7 +99,10 @@ const Sidebar: React.FC = () => {
       </nav>
 
       <div className="absolute bottom-4 left-0 w-full px-3">
-        <button className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-white/90 hover:bg-white/10">
+        <button
+          onClick={logout}
+          className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm text-white/90 hover:bg-white/10"
+        >
           <svg
             viewBox="0 0 24 24"
             className="h-4 w-4"
