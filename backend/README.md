@@ -8,8 +8,8 @@ Sigue los pasos para configurar el Backend.
 
 Es necesario tener instalado lo siguiente en tu sistema:
 
--   **PHP** >v8.1.x
--   **Composer** >2.2.x
+-   **PHP** ≥ v8.1.x
+-   **Composer** ≥ 2.2.x
 -   **MySQL**
 
 ---
